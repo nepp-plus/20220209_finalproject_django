@@ -23,12 +23,12 @@ from rest_framework.permissions import AllowAny
 # swagger 정보 사항 세팅 -> schema_view 변수에 담아두기
 schema_view = get_schema_view(
     openapi.Info(
-        title='사이트 제목',
+        title='Copang API 명세',
         default_version='v1',
-        description='사이트 설명 문구',
-        terms_of_service="이용약관링크",
+        description='빅데이터 파이썬 최종 프로젝트를 장고로 컨버팅 합니다.',
+        terms_of_service="https://neppplus.com",
         contact=openapi.Contact(name='Tester', email='test@test.com'),
-        license=openapi.License(name='실제적용라이센스')
+        license=openapi.License(name='Test License')
     ),
     public=True,
     permission_classes=(AllowAny,)
