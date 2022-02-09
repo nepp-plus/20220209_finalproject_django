@@ -1,4 +1,5 @@
 import hashlib
+import django
 from django.db import models
 import datetime
 
@@ -411,7 +412,7 @@ class Users(models.Model):
     phone = models.CharField(max_length=20)
     is_admin = models.IntegerField(default=False)
     image_url = models.CharField(max_length=200, blank=True, null=True)
-    created_at = models.DateTimeField(default=datetime.datetime.utcnow())
+    created_at = models.DateTimeField(default=django.utils.timezone.now())
     retired_at = models.DateTimeField(blank=True, null=True)
     
     @property
