@@ -12,9 +12,18 @@ class User(APIView):
     @token_required
     def get(self, request):
         
+        print('토큰 사용자 : ', request.session['user_id'])
+        
+        selected_user = Users.objects.filter(id=request.session['user_id']).first()
+        
+        user_serializer = UsersSerializer(selected_user)
+        
         return Response({
             'code': 200,
             'message': '내 정보 조회',
+            'data': {
+                'user': user_serializer.data,
+            }
         })
     
     def post(self, request):

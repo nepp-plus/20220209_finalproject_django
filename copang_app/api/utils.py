@@ -2,9 +2,11 @@ import jwt
 import my_custom_settings
 
 from copang_app.models import Users
+from copang_app.global_data import token_user
 from functools import wraps
 
 from rest_framework.response import Response
+
 
 # 사용자 정보를 가지고 -> 토큰 생성하기.
 def encode_token(user):
@@ -47,12 +49,13 @@ def token_required(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         
-        token = args[1].headers['X-Http-Token']
+        request = args[1]
+        token = request.headers['X-Http-Token']
         user = decode_token(token)
         
         if user:
-            # 프로젝트 전역변수로 사용자 전달
-            
+            # 요청의 세션에 사용자 기록
+            request.session['user_id'] = user.id
             # 추가 행동을 하고 나면, 본 함수를 실행하게.
             return func(*args, **kwargs)
         else:
