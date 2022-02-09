@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from copang_app.models import Users
 from copang_app.serializers import UsersSerializer
 
-from copang_app.api.utils import encode_token
+from copang_app.api.utils import encode_token, decode_token
 
 class User(APIView):
     
@@ -13,10 +13,22 @@ class User(APIView):
         
         print('헤더 출력 - ', request.headers['X-Http-Token'])
         
-        return Response({
-            'code': 200,
-            'message': '임시 - 내 정보 조회',
-        })
+        login_user = decode_token(request.headers['X-Http-Token'])
+        
+        if login_user:
+            user_ser = UsersSerializer(login_user)
+            return Response({
+                'code': 200,
+                'message': '내 정보 조회',
+                'data': {
+                    'user':  user_ser.data
+                }
+            })
+        else:
+            return Response({
+                'code':403,
+                'message': '토큰이 잘못되었습니다.'
+            }, status=403)
     
     def post(self, request):
         
