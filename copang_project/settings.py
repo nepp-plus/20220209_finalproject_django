@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'copang_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST' : 'my-first-db2.ckcb9pt3t4a9.ap-northeast-2.rds.amazonaws.com',
+        'PORT' : '3306',
+        'USER' : 'admin',
+        'PASSWORD': 'admin123',
+        'NAME': 'final_project',
     }
 }
 
