@@ -2,6 +2,7 @@ import jwt
 import my_custom_settings
 
 from copang_app.models import Users
+from functools import wraps
 
 # 사용자 정보를 가지고 -> 토큰 생성하기.
 def encode_token(user):
@@ -37,3 +38,17 @@ def decode_token(token):
         # 복호화 중에 문제 발생.
         # 토큰이 잘못됬다. => 사용자 없다고 return
         return None
+    
+    
+# 데코레이터 - @추가함수 형태로, 본 함수 실행 전에 추가기능을 우선 수행하도록.
+def token_required(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        
+        print('토큰필요기능')
+        
+        # 추가 행동을 하고 나면, 본 함수를 실행하게.
+        return func(*args, **kwargs)
+    
+    # 위의 decorator에 적힌 내용을 실행하도록
+    return decorator

@@ -5,10 +5,11 @@ from rest_framework.response import Response
 from copang_app.models import Users
 from copang_app.serializers import UsersSerializer
 
-from copang_app.api.utils import encode_token, decode_token
+from copang_app.api.utils import encode_token, decode_token, token_required
 
 class User(APIView):
     
+    @token_required
     def get(self, request):
         
         print('헤더 출력 - ', request.headers['X-Http-Token'])
