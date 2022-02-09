@@ -1,3 +1,4 @@
+import hashlib
 from django.db import models
 
 
@@ -412,6 +413,23 @@ class Users(models.Model):
     image_url = models.CharField(max_length=200, blank=True, null=True)
     created_at = models.DateTimeField()
     retired_at = models.DateTimeField(blank=True, null=True)
+    
+    @property
+    def password(self):
+        raise AttributeError('비밀번호는 조회는 불가합니다.')
+    
+    @password.setter
+    def password(self, input_password):
+        self.password_hashed = self.generate_encrypted_password(input_password) # 암호화된 비번을 넣어야 함.
+        
+    def generate_encrypted_password(self, input_password):
+        # SHA512 로 암호화 > MD5로 추가 암호화.
+        pre_hashed = hashlib.sha512(input_password.encode('utf8')).hexdigest()
+        return hashlib.md5(pre_hashed.encode('utf8')).hexdigest()
+    
+    def is_same_password(self, input_password):
+        hashed_input_pw = self.generate_encrypted_password(input_password)
+        return self.password_hashed == hashed_input_pw
 
     class Meta:
         managed = False
