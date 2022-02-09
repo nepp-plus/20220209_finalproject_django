@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import my_custom_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,16 +75,7 @@ WSGI_APPLICATION = 'copang_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST' : 'my-first-db2.ckcb9pt3t4a9.ap-northeast-2.rds.amazonaws.com',
-        'PORT' : '3306',
-        'USER' : 'admin',
-        'PASSWORD': 'admin123',
-        'NAME': 'final_project',
-    }
-}
+DATABASES = my_custom_settings.DATABASES
 
 
 # Password validation
