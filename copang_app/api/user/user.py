@@ -9,6 +9,15 @@ from copang_app.api.utils import encode_token
 
 class User(APIView):
     
+    def get(self, request):
+        
+        print('헤더 출력 - ', request.headers['X-Http-Token'])
+        
+        return Response({
+            'code': 200,
+            'message': '임시 - 내 정보 조회',
+        })
+    
     def post(self, request):
         
         input_email = request.POST['email']
