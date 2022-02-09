@@ -12,24 +12,10 @@ class User(APIView):
     @token_required
     def get(self, request):
         
-        print('헤더 출력 - ', request.headers['X-Http-Token'])
-        
-        login_user = decode_token(request.headers['X-Http-Token'])
-        
-        if login_user:
-            user_ser = UsersSerializer(login_user)
-            return Response({
-                'code': 200,
-                'message': '내 정보 조회',
-                'data': {
-                    'user':  user_ser.data
-                }
-            })
-        else:
-            return Response({
-                'code':403,
-                'message': '토큰이 잘못되었습니다.'
-            }, status=403)
+        return Response({
+            'code': 200,
+            'message': '내 정보 조회',
+        })
     
     def post(self, request):
         

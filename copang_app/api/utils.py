@@ -46,6 +46,10 @@ def token_required(func):
     def decorator(*args, **kwargs):
         
         print('토큰필요기능')
+        print('변수 목록 - ', args)
+        print('키워드가 붙은 변수 목록 - ', kwargs)
+        
+        print('리퀘스트 변수의 헤더의 토큰 - ', args[1].headers['X-Http-Token'])
         
         # 추가 행동을 하고 나면, 본 함수를 실행하게.
         return func(*args, **kwargs)
