@@ -6,6 +6,7 @@ from copang_app.models import Users
 from copang_app.serializers import UsersSerializer
 
 from copang_app.api.utils import encode_token, decode_token, token_required
+import datetime
 
 class User(APIView):
     
@@ -63,4 +64,28 @@ class User(APIView):
                 'message': '해당 이메일의 사용자는 존재하지 않습니다.'
             }, status=400)
         
+    def put(self, request):
         
+        # 이메일, 비번, 이름, 폰번
+        
+        print(request.POST)
+        
+        args = {}
+        
+        for param in request.POST:
+            args[param] = request.POST[param]
+        
+        
+        new_user = Users()
+        new_user.email = args['email']
+        new_user.password = args['password']
+        new_user.name = args['name']
+        new_user.phone = args['phone']
+        
+        new_user.save()
+        
+        return Response({
+            'code': 200,
+            'message': '임시 - 회원가입'
+        })
+    
